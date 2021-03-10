@@ -51,10 +51,10 @@ augroup vimwiki
     if g:zettel_synced==0
       let g:zettel_synced = 1
       if has("nvim")
-        let gitjob = jobstart("git -C " . g:zettel_dir . " pull origin master", {"exit_cb": "My_exit_cb", "close_cb": "My_close_cb"})
+        let gitjob = jobstart("git -C " . g:zettel_dir . " pull origin main", {"exit_cb": "My_exit_cb", "close_cb": "My_close_cb"})
         let taskjob = jobstart("task sync")
       else
-        let gitjob = job_start("git -C " . g:zettel_dir . " pull origin master", {"exit_cb": "My_exit_cb", "close_cb": "My_close_cb"})
+        let gitjob = job_start("git -C " . g:zettel_dir . " pull origin main", {"exit_cb": "My_exit_cb", "close_cb": "My_close_cb"})
         let taskjob = job_start("task sync")
       endif
     endif
@@ -65,10 +65,10 @@ augroup vimwiki
   " fixed
   function! s:push_changes()
     if has("nvim")
-      let gitjob = jobstart("git -C " . g:zettel_dir . " push origin master")
+      let gitjob = jobstart("git -C " . g:zettel_dir . " push origin main")
       let taskjob = jobstart("task sync")
     else
-      let gitjob = job_start("git -C " . g:zettel_dir . " push origin master")
+      let gitjob = job_start("git -C " . g:zettel_dir . " push origin main")
       let taskjob = job_start("task sync")
     endif
   endfunction
@@ -79,6 +79,6 @@ augroup vimwiki
   " auto commit changes on each file change
   au! BufWritePost * call <sid>git_action("git add .;git commit -m \"Auto commit + push. `date`\"")
   " push changes only on at the end
-  au! VimLeave * call <sid>git_action("git push origin master")
+  au! VimLeave * call <sid>git_action("git push origin main")
   " au! VimLeave * call <sid>push_changes()
 augroup END
