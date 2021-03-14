@@ -33,10 +33,9 @@ augroup vimwiki
     redraw!
   endfunction
 
+  call <sid>git_action("git pull origin main")
 
-  " sync changes at the start
-  au! VimEnter * call <sid>pull_changes()
-  au! BufRead * call <sid>pull_changes()
+  au! BufRead * call <sid>git_action("git pull origin main")
   " auto commit changes on each file change
   au! BufWritePost * call <sid>git_action("git add .;git commit -m \"Auto commit + push. `date`\"")
   " push changes only on at the end
