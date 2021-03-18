@@ -27,8 +27,10 @@ augroup vimwiki
   " dir. silent is used to disable necessity to press <enter> after each
   " command. the downside is that the command output is not displayed at all.
   " One idea: what about running git asynchronously?
+  " NEW: Sync Taskwarrior if installed and configured
   function! s:git_action(action)
     execute ':silent !pushd ' . g:zettel_dir . "; ". a:action . "; popd"
+    execute ':silent !test -f $HOME/.taskrc && task sync'
     " prevent screen artifacts
     redraw!
   endfunction
@@ -40,5 +42,4 @@ augroup vimwiki
   au! BufWritePost * call <sid>git_action("git add .;git commit -m \"Auto commit + push. `date`\"")
   " push changes only on at the end
   au! VimLeave * call <sid>git_action("git push origin main")
-  " au! VimLeave * call <sid>push_changes()
 augroup END
