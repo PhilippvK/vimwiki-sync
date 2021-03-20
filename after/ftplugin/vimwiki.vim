@@ -37,7 +37,8 @@ augroup vimwiki
 
   call <sid>git_action("git pull origin main")
 
-  au! BufRead * call <sid>git_action("git pull origin main")
+  " Commented out because this breakes the search function
+  " au! BufRead * call <sid>git_action("git pull origin main")
   " auto commit changes on each file change
   au! BufWritePost * call <sid>git_action("git add .;git commit -m \"Auto commit + push. `date`\"")
   " push changes only on at the end
