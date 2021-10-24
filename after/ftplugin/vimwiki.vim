@@ -31,6 +31,9 @@ augroup vimwiki
   function! s:git_action(action)
     execute ':silent !pushd ' . g:zettel_dir . "; ". a:action . "; popd"
     execute ':silent !test -f $HOME/.taskrc && task sync'
+    "execute ':silent !eval PAPIS_DIR=$(papis config dir) && test -d $PAPIS_DIR/.git/ && papis git pull'
+    "execute ':silent !eval PAPIS_DIR=$(papis config dir) && test -d $PAPIS_DIR/.git/ && papis git push'
+    " TODO: introduce parameters like push_extra_cmd, pull_extra_cmd
     " prevent screen artifacts
     redraw!
   endfunction
